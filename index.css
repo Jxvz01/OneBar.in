@@ -1,19 +1,22 @@
 /* ═══════════════ DESIGN TOKENS ═══════════════ */
 :root {
-  --bg: #0a0a0f;
-  --bg-card: rgba(255,255,255,0.03);
-  --bg-card-hover: rgba(255,255,255,0.06);
-  --border: rgba(255,255,255,0.08);
-  --border-hover: rgba(124,58,237,0.4);
-  --primary: #7C3AED;
-  --primary-dark: #6D28D9;
-  --accent: #A78BFA;
-  --purple-light: #C4B5FD;
-  --text-1: rgba(255,255,255,0.92);
-  --text-2: rgba(255,255,255,0.55);
-  --text-3: rgba(255,255,255,0.30);
+  --bg: #05050a;
+  --bg-card: rgba(255, 255, 255, 0.02);
+  --bg-card-hover: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(124, 58, 237, 0.5);
+  --primary: #8B5CF6;
+  --primary-glow: rgba(139, 92, 246, 0.3);
+  --primary-dark: #7C3AED;
+  --accent: #C084FC;
+  --purple-light: #DDD6FE;
+  --text-1: #ffffff;
+  --text-2: rgba(255, 255, 255, 0.7);
+  --text-3: rgba(255, 255, 255, 0.45);
   --success: #10B981;
   --font: 'Plus Jakarta Sans', sans-serif;
+  --card-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+  --card-glow: 0 0 20px rgba(124, 58, 237, 0.05);
 }
 
 /* ═══════════════ FASCINATING PRELOADER ═══════════════ */
@@ -369,16 +372,27 @@ h1,h2,h3{color:var(--text-1);font-weight:600}
 
 /* ═══════════════ GLASS CARDS ═══════════════ */
 .glass-card{
-  background:var(--bg-card);
-  border:1px solid var(--border);
-  border-radius:16px;padding:32px;
-  text-align:left;
-  transition:all 0.3s ease;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: left;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.glass-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.03), transparent 70%);
+  pointer-events: none;
 }
 .glass-card:hover{
-  background:var(--bg-card-hover);
-  border-color:var(--border-hover);
-  transform:translateY(-2px);
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 20px 40px -12px rgba(0,0,0,0.6), 0 0 20px rgba(124, 58, 237, 0.1);
 }
 .glass-card h3{font-size:18px;margin-bottom:8px;font-weight:600}
 .glass-card p{font-size:14px;line-height:1.7;color:var(--text-2)}
@@ -450,11 +464,40 @@ h1,h2,h3{color:var(--text-1);font-weight:600}
 }
 .feature-pill p{font-size:12px;color:var(--text-3);line-height:1.5}
 
-/* ═══════════════ BIG QUOTE ═══════════════ */
-.section-quote{padding:80px 0}
-.big-quote{
-  font-size:clamp(32px,5vw,60px);line-height:1.15;
-  font-weight:600;letter-spacing:-1px;
+/* ═══════════════ CTA BANNER ═══════════════ */
+.section-cta-banner {
+  padding: 180px 0;
+  background: 
+    linear-gradient(180deg, rgba(5, 5, 10, 0) 0%, rgba(124, 58, 237, 0.05) 50%, rgba(5, 5, 10, 0) 100%),
+    radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.12), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.08), transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(192, 132, 252, 0.05), transparent 60%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  animation: bannerShimmer 20s infinite alternate ease-in-out;
+}
+.section-cta-banner::before {
+  content: ''; position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50h100M50 0v100' stroke='rgba(124,58,237,0.02)' stroke-width='0.5'/%3E%3C/svg%3E");
+  opacity: 0.8;
+}
+.section-cta-banner::after {
+  content: ''; position: absolute; 
+  top: 50%; left: 50%; width: 140%; height: 200%;
+  background: radial-gradient(circle at center, rgba(124, 58, 237, 0.03) 0%, transparent 60%);
+  transform: translate(-50%, -50%); pointer-events: none;
+}
+@keyframes bannerShimmer {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+.big-quote {
+  font-size: clamp(40px, 7vw, 92px); line-height: 0.95;
+  font-weight: 800; letter-spacing: -4px;
+  margin-bottom: 24px;
+  text-shadow: 0 0 50px rgba(124, 58, 237, 0.15);
 }
 
 /* ═══════════════ WAITLIST ═══════════════ */
