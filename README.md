@@ -31,4 +31,4 @@ If you are developing a production application, we recommend enabling type-aware
 
 See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
 
-/* git-build-ref: 10 */
+/* git-build-ref: 21 */
