@@ -1,0 +1,267 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ════════════════════════════════════════════════
+   DESIGN SYSTEM - PREMIUM FINTECH INFRASTRUCTURE
+   ════════════════════════════════════════════════ */
+
+:root {
+  color-scheme: dark;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #030306;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.4);
+}
+
+/* Selection Highlight */
+::selection {
+  background: rgba(124, 58, 237, 0.25);
+  color: #fff;
+}
+
+body {
+  background-color: #030306;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Lenis Smooth Scroll Configuration */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overflow: clip;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Custom Cursor Styles */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+.cursor-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: #7C3AED;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+.cursor-ring {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: width 0.2s, height 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+/* Hover effects for cursor */
+.cursor-hovering .cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #A78BFA;
+}
+.cursor-hovering .cursor-ring {
+  width: 48px;
+  height: 48px;
+  border-color: rgba(124, 58, 237, 0.8);
+  background-color: rgba(124, 58, 237, 0.05);
+}
+
+/* Hide cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
+
+/* Background grid network lines (Sleek infrastructure style) */
+.tech-grid-bg {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-position: center center;
+}
+
+/* Radial spotlight effect */
+.radial-spotlight {
+  background: radial-gradient(circle 800px at 50% 200px, rgba(124, 58, 237, 0.08), transparent 80%);
+}
+
+.radial-spotlight-bottom {
+  background: radial-gradient(circle 600px at 50% 80%, rgba(124, 58, 237, 0.06), transparent 85%);
+}
+
+/* Custom interactive UI classes */
+.glow-card {
+  position: relative;
+  background: #0a0a0f;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glow-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), transparent 40%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-card:hover {
+  border-color: rgba(124, 58, 237, 0.15);
+  box-shadow: 0 10px 30px -15px rgba(124, 58, 237, 0.15);
+}
+
+.glow-card:hover::after {
+  opacity: 1;
+}
+
+/* Premium gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 40%, #A78BFA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-purple {
+  background: linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Horizontal or vertical connection lines */
+.network-line {
+  background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.2), transparent);
+}
+
+/* Signal radar circles */
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+.pulse-circle {
+  animation: radar-pulse 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* Mockup Specific Styles */
+.bg-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(109, 40, 217, 0.15) 0%, rgba(2, 0, 10, 0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.phone-mockup {
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 0 0 4px #1a1a24,
+    0 0 0 5px #2a2a36,
+    0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  background-color: #0a0a0f;
+}
+
+.phone-notch {
+  width: 120px;
+  height: 30px;
+  background-color: #000;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+.dynamic-island {
+  width: 90px;
+  height: 25px;
+  background-color: #000;
+  border-radius: 20px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.05) inset;
+}
+
+.no-drag {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+@keyframes pulseLine {
+  0% { left: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+.animate-pulse-line {
+  animation: pulseLine 1.8s linear forwards;
+}
+
+.animate-pulse-line-delayed {
+  animation: pulseLine 2.2s linear 1.8s forwards;
+}
+
+
+
