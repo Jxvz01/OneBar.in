@@ -110,13 +110,19 @@ export default function About() {
               {/* Founder Photo */}
               <div className="lg:col-span-5 relative group">
                 <div className="absolute inset-0 bg-onebar-purple/20 rounded-2xl blur-2xl opacity-40 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none" />
-                <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-black">
+                <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-black select-none">
                   <img
                     src="/jeevan.png"
                     alt="H. Jeevan, Founder & CEO of OneBar"
-                    className="w-full h-auto object-cover grayscale contrast-[1.08] hover:grayscale-0 transition-all duration-700 rounded-2xl"
+                    draggable="false"
+                    className="w-full h-auto object-cover grayscale contrast-[1.08] group-hover:grayscale-0 transition-all duration-700 rounded-2xl pointer-events-none select-none"
                   />
-                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 text-center">
+                  {/* Transparent overlay shield to block dragging and direct right-clicking */}
+                  <div 
+                    className="absolute inset-0 z-10 bg-transparent select-none"
+                    onContextMenu={(e) => e.preventDefault()}
+                  />
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-4 text-center z-20">
                     <span className="font-mono text-[10px] text-zinc-400 tracking-widest uppercase block">MYSURU, INDIA</span>
                   </div>
                 </div>
