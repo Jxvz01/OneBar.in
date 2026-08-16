@@ -114,7 +114,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f9f9fb; padding: 40px 20px; color: #1e1e24;">
   <div style="max-width: 540px; margin: 0 auto; background-color: #ffffff; border: 1px solid #eef0f3; border-radius: 16px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
     <div style="text-align: center; margin-bottom: 30px;">
-      <img src="cid:onebar-logo" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+      <img src="cid:logo@onebar-in.vercel.app" width="56" height="56" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
       <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-top: 15px; margin-bottom: 5px;">New Contact Submission</div>
       <div style="font-size: 12px; font-family: monospace; color: #7c3aed;">onebar-in.vercel.app</div>
     </div>
@@ -146,7 +146,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         {
           filename: "logo.jpg",
           path: path.join(process.cwd(), "api", "logo.jpg"),
-          cid: "onebar-logo"
+          cid: "logo@onebar-in.vercel.app",
+          contentType: "image/jpeg",
+          disposition: "inline"
         }
       ]
     };
@@ -160,7 +162,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f9f9fb; padding: 40px 20px; color: #1e1e24;">
   <div style="max-width: 540px; margin: 0 auto; background-color: #ffffff; border: 1px solid #eef0f3; border-radius: 16px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
     <div style="text-align: center; margin-bottom: 30px;">
-      <img src="cid:onebar-logo" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+      <img src="cid:logo@onebar-in.vercel.app" width="56" height="56" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
       <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-top: 15px; margin-bottom: 5px;">Message Received</div>
       <div style="font-size: 12px; font-family: monospace; color: #7c3aed;">onebar-in.vercel.app</div>
     </div>
@@ -179,7 +181,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         {
           filename: "logo.jpg",
           path: path.join(process.cwd(), "api", "logo.jpg"),
-          cid: "onebar-logo"
+          cid: "logo@onebar-in.vercel.app",
+          contentType: "image/jpeg",
+          disposition: "inline"
         }
       ]
     };
