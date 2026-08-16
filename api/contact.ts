@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { createClient } from "@supabase/supabase-js";
 import nodemailer from "nodemailer";
+import path from "path";
 
 export const config = {
   runtime: "nodejs",
@@ -113,7 +114,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f9f9fb; padding: 40px 20px; color: #1e1e24;">
   <div style="max-width: 540px; margin: 0 auto; background-color: #ffffff; border: 1px solid #eef0f3; border-radius: 16px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
     <div style="text-align: center; margin-bottom: 30px;">
-      <img src="https://onebar-in.vercel.app/logo.jpg" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+      <img src="cid:onebar-logo" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
       <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-top: 15px; margin-bottom: 5px;">New Contact Submission</div>
       <div style="font-size: 12px; font-family: monospace; color: #7c3aed;">onebar-in.vercel.app</div>
     </div>
@@ -140,7 +141,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       This inquiry was sent from <a href="https://onebar-in.vercel.app" style="color: #7c3aed; text-decoration: none;">onebar-in.vercel.app</a>
     </div>
   </div>
-</div>`
+</div>`,
+      attachments: [
+        {
+          filename: "logo.jpg",
+          path: path.join(process.cwd(), "api", "logo.jpg"),
+          cid: "onebar-logo"
+        }
+      ]
     };
 
     // 4. Send Confirmation Email to the user
@@ -152,7 +160,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f9f9fb; padding: 40px 20px; color: #1e1e24;">
   <div style="max-width: 540px; margin: 0 auto; background-color: #ffffff; border: 1px solid #eef0f3; border-radius: 16px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
     <div style="text-align: center; margin-bottom: 30px;">
-      <img src="https://onebar-in.vercel.app/logo.jpg" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+      <img src="cid:onebar-logo" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
       <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-top: 15px; margin-bottom: 5px;">Message Received</div>
       <div style="font-size: 12px; font-family: monospace; color: #7c3aed;">onebar-in.vercel.app</div>
     </div>
@@ -166,7 +174,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       Visit our website at <a href="https://onebar-in.vercel.app" style="color: #7c3aed; text-decoration: none;">onebar-in.vercel.app</a>
     </div>
   </div>
-</div>`
+</div>`,
+      attachments: [
+        {
+          filename: "logo.jpg",
+          path: path.join(process.cwd(), "api", "logo.jpg"),
+          cid: "onebar-logo"
+        }
+      ]
     };
 
     // Run mail sending tasks in parallel
