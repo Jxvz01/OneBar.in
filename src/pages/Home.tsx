@@ -4,13 +4,15 @@ import Problem from "../sections/Problem";
 import Principle from "../sections/Principle";
 import Technology from "../sections/Technology";
 import BuildInPublic from "../sections/BuildInPublic";
-import { Send } from "lucide-react";
+import { Send, AlertCircle } from "lucide-react";
 import gsap from "gsap";
 
 export default function Home() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [waitlistMessage, setWaitlistMessage] = useState<string | null>(null);
   const expSectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -37,15 +39,40 @@ export default function Home() {
     return () => ctx.revert();
   }, []);
 
-  const handleWaitlistSubmit = (e: React.FormEvent) => {
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate database submit
-    setTimeout(() => {
+    setServerError(null);
+    setWaitlistMessage(null);
+
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setIsSubmitted(true);
+        if (data.message) {
+          setWaitlistMessage(data.message);
+        }
+        setEmail("");
+      } else {
+        setServerError(
+          data.error || "Something went wrong. Please try again or email us directly at onebar.help@gmail.com."
+        );
+      }
+    } catch (err: any) {
+      console.error("[ONEBAR WAITLIST SUBMISSION EXCEPTION]", err);
+      setServerError("An unexpected error occurred. Please try again later or email us directly.");
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      setEmail("");
-    }, 1500);
+    }
   };
 
   return (
@@ -142,6 +169,15 @@ export default function Home() {
 
             {!isSubmitted ? (
               <form onSubmit={handleWaitlistSubmit} className="max-w-md mx-auto space-y-4">
+                {serverError && (
+                  <div className="p-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-300 text-xs flex items-start gap-3 animate-fade-in text-left">
+                    <AlertCircle size={16} className="text-red-400 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-semibold">Join Waitlist Warning</p>
+                      <p className="mt-0.5 opacity-90">{serverError}</p>
+                    </div>
+                  </div>
+                )}
                 <div className="flex flex-col sm:flex-row gap-3">
                   <input
                     type="email"
@@ -175,9 +211,11 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-full bg-onebar-purple/10 border border-onebar-purple/35 flex items-center justify-center text-onebar-electric mx-auto mb-4">
                   <CheckCircle2Icon />
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Waitlist Confirmed!</h3>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  {waitlistMessage ? "Already Subscribed!" : "Waitlist Confirmed!"}
+                </h3>
                 <p className="text-xs text-gray-400 max-w-sm mx-auto">
-                  You are now on the queue for local sandbox pilot notifications. We'll ping you once nodes open in your zone.
+                  {waitlistMessage || "You are now on the queue for local sandbox pilot notifications. We'll ping you once nodes open in your zone."}
                 </p>
               </div>
             )}

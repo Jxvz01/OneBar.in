@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { Resend } from "resend";
+import { createClient } from "@supabase/supabase-js";
+import nodemailer from "nodemailer";
 
 export const config = {
   runtime: "nodejs",
@@ -48,51 +49,106 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const cleanMessage = message.trim();
     const timestamp = new Date().toUTCString();
 
-    const apiKey = process.env.RESEND_API_KEY;
-    const recipientEmail = process.env.CONTACT_EMAIL || "onebar.help@gmail.com";
-    const fromEmail = process.env.CONTACT_FROM_EMAIL || "OneBar <onboarding@resend.dev>";
+    // Supabase config
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-    // If Resend API Key is not set yet in environment, return simulated success with notice
-    if (!apiKey || apiKey.trim().length === 0) {
-      console.log(`[ONEBAR CONTACT FORM SIMULATED SUBMISSION]`);
-      console.log(`Name: ${cleanName}`);
-      console.log(`Email: ${cleanEmail}`);
-      console.log(`Company: ${cleanCompany}`);
-      console.log(`Inquiry: ${cleanInquiry}`);
-      console.log(`Message: ${cleanMessage}`);
-      console.log(`Timestamp: ${timestamp}`);
-
-      return res.status(200).json({
-        success: true,
-        simulated: true,
-        message: "Message processed cleanly. Configure RESEND_API_KEY in Vercel to dispatch live emails.",
+    if (!supabaseUrl || !supabaseServiceKey) {
+      console.error("[ONEBAR CONTACT ERROR] Supabase credentials are not configured.");
+      return res.status(500).json({
+        error: "Server configuration error. Please contact onebar.help@gmail.com directly.",
       });
     }
 
-    // Send Live Email via Resend
-    const resend = new Resend(apiKey);
-    const subjectLine = `[ONEBAR CONTACT] ${cleanInquiry} — ${cleanName}`;
+    // SMTP Config
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
 
-    const textContent = `New message received through onebar.in\n\nName:\n${cleanName}\n\nEmail:\n${cleanEmail}\n\nCompany / Organisation:\n${cleanCompany}\n\nInquiry Type:\n${cleanInquiry}\n\nMessage:\n${cleanMessage}\n\nSubmitted:\n${timestamp}\n\nWebsite:\nonebar.in`;
+    if (!gmailUser || !gmailAppPassword) {
+      console.error("[ONEBAR CONTACT ERROR] Gmail SMTP credentials are not configured.");
+      return res.status(500).json({
+        error: "Server configuration error. Please contact onebar.help@gmail.com directly.",
+      });
+    }
 
-    const response = await resend.emails.send({
-      from: fromEmail,
-      to: [recipientEmail],
-      replyTo: cleanEmail,
-      subject: subjectLine,
-      text: textContent,
+    // 1. Store in Supabase contact_submissions
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    const { error: dbError } = await supabase
+      .from("contact_submissions")
+      .insert([
+        {
+          name: cleanName,
+          email: cleanEmail,
+          company: cleanCompany,
+          inquiry_type: cleanInquiry,
+          message: cleanMessage,
+        },
+      ]);
+
+    if (dbError) {
+      console.error("[ONEBAR CONTACT DATABASE ERROR]", dbError);
+      return res.status(500).json({
+        error: "Unable to save your message. Please try again or email us directly at onebar.help@gmail.com.",
+      });
+    }
+
+    // 2. Setup Nodemailer Transporter using Gmail SMTP
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: gmailUser,
+        pass: gmailAppPassword,
+      },
     });
 
-    if (response.error) {
-      console.error("[ONEBAR RESEND API ERROR]", response.error);
+    // 3. Send Internal Notification Email to onebar.help@gmail.com
+    const internalMailOptions = {
+      from: `OneBar <${gmailUser}>`,
+      to: "onebar.help@gmail.com",
+      replyTo: cleanEmail,
+      subject: "New Contact Form Submission — OneBar",
+      text: `New message received through onebar.in\n\nName:\n${cleanName}\n\nEmail:\n${cleanEmail}\n\nCompany / Organisation:\n${cleanCompany}\n\nInquiry Type:\n${cleanInquiry}\n\nMessage:\n${cleanMessage}\n\nSubmitted:\n${timestamp}\n\nWebsite:\nonebar.in`,
+    };
+
+    // 4. Send Confirmation Email to the user
+    const confirmationMailOptions = {
+      from: `OneBar <${gmailUser}>`,
+      to: cleanEmail,
+      subject: "We received your message — OneBar",
+      text: `Hi ${cleanName},
+
+Thank you for reaching out to OneBar. We have received your message regarding "${cleanInquiry}".
+
+OneBar is currently in the R&D stage, and we appreciate you taking the time to share your thoughts with us. Our team reviews all incoming inquiries and will follow up if there is alignment.
+
+Best regards,
+The OneBar Team
+https://onebar.in`,
+    };
+
+    // Run mail sending tasks in parallel
+    const [internalRes, confirmationRes] = await Promise.allSettled([
+      transporter.sendMail(internalMailOptions),
+      transporter.sendMail(confirmationMailOptions),
+    ]);
+
+    // Log errors if email sending fails
+    if (internalRes.status === "rejected") {
+      console.error("[ONEBAR SMTP ERROR] Failed to send internal notification:", internalRes.reason);
       return res.status(500).json({
-        error: "Unable to deliver message right now. Please try again or email us directly at onebar.help@gmail.com.",
+        error: "Failed to dispatch notification email. Please email us directly at onebar.help@gmail.com.",
       });
+    }
+
+    if (confirmationRes.status === "rejected") {
+      console.error("[ONEBAR SMTP ERROR] Failed to send confirmation email:", confirmationRes.reason);
+      // We do not fail the request if user confirmation fails but the internal notification succeeds.
     }
 
     return res.status(200).json({
       success: true,
-      id: response.data?.id,
     });
   } catch (error: any) {
     console.error("[ONEBAR CONTACT API SERVER EXCEPTION]", error);
@@ -101,5 +157,3 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
   }
 }
-
-/* git-build-ref: 20 */
