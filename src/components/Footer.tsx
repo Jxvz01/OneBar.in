@@ -25,45 +25,11 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="md:col-span-2">
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <svg viewBox="0 0 44 44" className="w-7 h-7" aria-label="OneBar logo">
-                <circle cx="22" cy="22" r="22" fill="#7C3AED" />
-                <circle cx="22" cy="30" r="2" fill="#FFF" />
-                <path
-                  d="M14 24a11 11 0 0 1 16 0"
-                  stroke="#FFF"
-                  strokeWidth="3"
-                  fill="none"
-                  strokeLinecap="round"
-                  opacity=".25"
-                />
-                <path
-                  d="M16.5 26.5a7.5 7.5 0 0 1 11 0"
-                  stroke="#FFF"
-                  strokeWidth="3"
-                  fill="none"
-                  strokeLinecap="round"
-                  opacity=".25"
-                />
-                <path
-                  d="M19 29a4 4 0 0 1 6 0"
-                  stroke="#FFF"
-                  strokeWidth="4"
-                  fill="none"
-                  strokeLinecap="round"
-                />
-                <circle cx="35" cy="9" r="8" fill="#FFF" />
-                <text
-                  x="35"
-                  y="13"
-                  textAnchor="middle"
-                  fontSize="12"
-                  fontWeight="800"
-                  fill="#7C3AED"
-                  fontFamily="monospace"
-                >
-                  1
-                </text>
-              </svg>
+              <img
+                src="/logo.jpg"
+                alt="OneBar Logo"
+                className="w-7 h-7 rounded-full object-cover"
+              />
               <span className="font-semibold text-white tracking-wider">OneBar</span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm mb-6">

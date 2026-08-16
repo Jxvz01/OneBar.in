@@ -109,7 +109,38 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       to: "onebar.help@gmail.com",
       replyTo: cleanEmail,
       subject: "New Contact Form Submission — OneBar",
-      text: `New message received through onebar.in\n\nName:\n${cleanName}\n\nEmail:\n${cleanEmail}\n\nCompany / Organisation:\n${cleanCompany}\n\nInquiry Type:\n${cleanInquiry}\n\nMessage:\n${cleanMessage}\n\nSubmitted:\n${timestamp}\n\nWebsite:\nonebar.in`,
+      text: `New message received through onebar-in.vercel.app\n\nName:\n${cleanName}\n\nEmail:\n${cleanEmail}\n\nCompany / Organisation:\n${cleanCompany}\n\nInquiry Type:\n${cleanInquiry}\n\nMessage:\n${cleanMessage}\n\nSubmitted:\n${timestamp}\n\nWebsite:\nonebar-in.vercel.app`,
+      html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f9f9fb; padding: 40px 20px; color: #1e1e24;">
+  <div style="max-width: 540px; margin: 0 auto; background-color: #ffffff; border: 1px solid #eef0f3; border-radius: 16px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <img src="https://onebar-in.vercel.app/logo.jpg" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+      <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-top: 15px; margin-bottom: 5px;">New Contact Submission</div>
+      <div style="font-size: 12px; font-family: monospace; color: #7c3aed;">onebar-in.vercel.app</div>
+    </div>
+    <div style="font-size: 14px; line-height: 1.6; color: #4a4a50;">
+      <div style="font-weight: 600; color: #7c3aed; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 20px; margin-bottom: 4px;">Submitter Name</div>
+      <div style="background-color: #f4f4f7; padding: 12px 16px; border-radius: 8px; color: #2e2e33; margin-bottom: 15px;">${cleanName}</div>
+
+      <div style="font-weight: 600; color: #7c3aed; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 20px; margin-bottom: 4px;">Email Address</div>
+      <div style="background-color: #f4f4f7; padding: 12px 16px; border-radius: 8px; color: #2e2e33; margin-bottom: 15px;">${cleanEmail}</div>
+
+      <div style="font-weight: 600; color: #7c3aed; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 20px; margin-bottom: 4px;">Company / Organisation</div>
+      <div style="background-color: #f4f4f7; padding: 12px 16px; border-radius: 8px; color: #2e2e33; margin-bottom: 15px;">${cleanCompany}</div>
+
+      <div style="font-weight: 600; color: #7c3aed; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 20px; margin-bottom: 4px;">Inquiry Type</div>
+      <div style="background-color: #f4f4f7; padding: 12px 16px; border-radius: 8px; color: #2e2e33; margin-bottom: 15px;">${cleanInquiry}</div>
+
+      <div style="font-weight: 600; color: #7c3aed; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 20px; margin-bottom: 4px;">Message</div>
+      <div style="background-color: #f4f4f7; padding: 12px 16px; border-radius: 8px; color: #2e2e33; margin-bottom: 15px; white-space: pre-wrap; word-break: break-word;">${cleanMessage}</div>
+
+      <div style="font-weight: 600; color: #7c3aed; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 20px; margin-bottom: 4px;">Submitted At</div>
+      <div style="background-color: #f4f4f7; padding: 12px 16px; border-radius: 8px; color: #2e2e33; margin-bottom: 15px;">${timestamp}</div>
+    </div>
+    <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f5; font-size: 12px; color: #9999a3;">
+      This inquiry was sent from <a href="https://onebar-in.vercel.app" style="color: #7c3aed; text-decoration: none;">onebar-in.vercel.app</a>
+    </div>
+  </div>
+</div>`
     };
 
     // 4. Send Confirmation Email to the user
@@ -117,15 +148,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       from: `OneBar <${gmailUser}>`,
       to: cleanEmail,
       subject: "We received your message — OneBar",
-      text: `Hi ${cleanName},
-
-Thank you for reaching out to OneBar. We have received your message regarding "${cleanInquiry}".
-
-OneBar is currently in the R&D stage, and we appreciate you taking the time to share your thoughts with us. Our team reviews all incoming inquiries and will follow up if there is alignment.
-
-Best regards,
-The OneBar Team
-https://onebar.in`,
+      text: `Hi ${cleanName},\n\nThank you for reaching out to OneBar. We have received your message regarding "${cleanInquiry}".\n\nOneBar is currently in the R&D stage, and we appreciate you taking the time to share your thoughts with us. Our team reviews all incoming inquiries and will follow up if there is alignment.\n\nBest regards,\nThe OneBar Team\nhttps://onebar-in.vercel.app`,
+      html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f9f9fb; padding: 40px 20px; color: #1e1e24;">
+  <div style="max-width: 540px; margin: 0 auto; background-color: #ffffff; border: 1px solid #eef0f3; border-radius: 16px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <img src="https://onebar-in.vercel.app/logo.jpg" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+      <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-top: 15px; margin-bottom: 5px;">Message Received</div>
+      <div style="font-size: 12px; font-family: monospace; color: #7c3aed;">onebar-in.vercel.app</div>
+    </div>
+    <div style="font-size: 15px; line-height: 1.6; color: #4a4a50;">
+      <p>Hi ${cleanName},</p>
+      <p>Thank you for reaching out to OneBar. We have received your message regarding <strong>"${cleanInquiry}"</strong>.</p>
+      <p>OneBar is currently in the R&D stage, and we appreciate you taking the time to share your thoughts with us. Our team reviews all incoming inquiries and will follow up if there is alignment.</p>
+      <p style="margin-top: 30px;">Best regards,<br /><strong style="color: #1a1a1a;">The OneBar Team</strong></p>
+    </div>
+    <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f5; font-size: 12px; color: #9999a3;">
+      Visit our website at <a href="https://onebar-in.vercel.app" style="color: #7c3aed; text-decoration: none;">onebar-in.vercel.app</a>
+    </div>
+  </div>
+</div>`
     };
 
     // Run mail sending tasks in parallel

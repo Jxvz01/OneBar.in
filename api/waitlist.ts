@@ -106,17 +106,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       from: `OneBar <${gmailUser}>`,
       to: cleanEmail,
       subject: "Welcome to OneBar",
-      text: `Hi,
-
-Thank you for your interest in OneBar. You are now part of the OneBar waitlist!
-
-We are currently researching and developing our next-generation digital payment infrastructure. We will notify you as soon as closed pilot trials or testing opportunities open up in your area.
-
-In the meantime, feel free to visit our website to keep up with the project.
-
-Best regards,
-The OneBar Team
-https://onebar.in`,
+      text: `Hi,\n\nThank you for your interest in OneBar. You are now part of the OneBar waitlist!\n\nWe are currently researching and developing our next-generation digital payment infrastructure. We will notify you as soon as closed pilot trials or testing opportunities open up in your area.\n\nIn the meantime, feel free to visit our website to keep up with the project.\n\nBest regards,\nThe OneBar Team\nhttps://onebar-in.vercel.app`,
+      html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f9f9fb; padding: 40px 20px; color: #1e1e24;">
+  <div style="max-width: 540px; margin: 0 auto; background-color: #ffffff; border: 1px solid #eef0f3; border-radius: 16px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <img src="https://onebar-in.vercel.app/logo.jpg" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+      <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-top: 15px; margin-bottom: 5px;">Welcome to the Waitlist</div>
+      <div style="font-size: 12px; font-family: monospace; color: #7c3aed;">onebar-in.vercel.app</div>
+    </div>
+    <div style="font-size: 15px; line-height: 1.6; color: #4a4a50;">
+      <p>Hi,</p>
+      <p>Thank you for your interest in OneBar. You are now officially on the OneBar waitlist!</p>
+      <p>We are currently researching and developing our next-generation, offline-resilient digital payment infrastructure. We will notify you as soon as closed pilot trials or testing opportunities open up in your area.</p>
+      <p>In the meantime, feel free to visit our website to follow our progress.</p>
+      <p style="margin-top: 30px;">Best regards,<br /><strong style="color: #1a1a1a;">The OneBar Team</strong></p>
+    </div>
+    <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f5; font-size: 12px; color: #9999a3;">
+      Visit our website at <a href="https://onebar-in.vercel.app" style="color: #7c3aed; text-decoration: none;">onebar-in.vercel.app</a>
+    </div>
+  </div>
+</div>`
     };
 
     // 6. Send Internal Notification Email to onebar.help@gmail.com
@@ -124,7 +133,26 @@ https://onebar.in`,
       from: `OneBar <${gmailUser}>`,
       to: "onebar.help@gmail.com",
       subject: "New OneBar Waitlist Signup",
-      text: `A new user has joined the OneBar waitlist.\n\nUser Email:\n${cleanEmail}\n\nSignup Timestamp:\n${timestamp}\n\nWebsite:\nonebar.in`,
+      text: `A new user has joined the OneBar waitlist.\n\nUser Email:\n${cleanEmail}\n\nSignup Timestamp:\n${timestamp}\n\nWebsite:\nonebar-in.vercel.app`,
+      html: `<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f9f9fb; padding: 40px 20px; color: #1e1e24;">
+  <div style="max-width: 540px; margin: 0 auto; background-color: #ffffff; border: 1px solid #eef0f3; border-radius: 16px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <img src="https://onebar-in.vercel.app/logo.jpg" alt="OneBar Logo" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;" />
+      <div style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-top: 15px; margin-bottom: 5px;">New Waitlist Signup</div>
+      <div style="font-size: 12px; font-family: monospace; color: #7c3aed;">onebar-in.vercel.app</div>
+    </div>
+    <div style="font-size: 14px; line-height: 1.6; color: #4a4a50;">
+      <div style="font-weight: 600; color: #7c3aed; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 20px; margin-bottom: 4px;">User Email</div>
+      <div style="background-color: #f4f4f7; padding: 12px 16px; border-radius: 8px; color: #2e2e33; margin-bottom: 15px;">${cleanEmail}</div>
+
+      <div style="font-weight: 600; color: #7c3aed; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 20px; margin-bottom: 4px;">Signup Timestamp</div>
+      <div style="background-color: #f4f4f7; padding: 12px 16px; border-radius: 8px; color: #2e2e33; margin-bottom: 15px;">${timestamp}</div>
+    </div>
+    <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f5; font-size: 12px; color: #9999a3;">
+      This signup occurred on <a href="https://onebar-in.vercel.app" style="color: #7c3aed; text-decoration: none;">onebar-in.vercel.app</a>
+    </div>
+  </div>
+</div>`
     };
 
     // Run email sending tasks in parallel
