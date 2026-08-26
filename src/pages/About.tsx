@@ -103,6 +103,8 @@ export default function About() {
         </div>
 
         {/* ══════ 4. FOUNDER SECTION (REAL PHOTOGRAPH OF H. JEEVAN) ══════ */}
+        {/* FOUNDER SOCIAL URLS — replace with real personal profile URLs when available */}
+        {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
         <div className="max-w-6xl mx-auto mb-32 reveal-anim">
           <div className="p-8 sm:p-12 rounded-3xl border border-white/10 bg-dark-card/90 backdrop-blur-xl shadow-2xl relative overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -162,9 +164,47 @@ export default function About() {
                   </p>
                 </div>
 
-                <p className="text-zinc-400 text-sm leading-relaxed">
-                  Building out of Mysuru, India, we are focusing on solving real connectivity constraints with honest engineering, minimal friction, and zero pre-loading requirements.
+                <p className="text-zinc-400 text-sm leading-relaxed mb-8">
+                  Building out of Mysuru, India, OneBar focuses on solving real connectivity constraints with honest engineering, minimal friction and zero pre-loading requirements.
                 </p>
+
+                {/* ── Founder social links ── */}
+                <div className="flex items-center gap-3 flex-wrap">
+                  <a
+                    href="https://www.instagram.com/__.jxvz01"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="H. Jeevan on Instagram (opens in new tab)"
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-white/10 bg-white/[0.03] text-zinc-400 text-xs font-mono tracking-wide hover:border-white/20 hover:text-white hover:bg-white/[0.06] transition-all duration-200 group"
+                  >
+                    {/* Instagram icon */}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="opacity-60 group-hover:opacity-90 transition-opacity">
+                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                    </svg>
+                    <span>Instagram</span>
+                    <span className="opacity-40 group-hover:opacity-70 transition-opacity text-[10px]">↗</span>
+                  </a>
+
+                  <a
+                    href="https://www.linkedin.com/in/jeevan-h-"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="H. Jeevan on LinkedIn (opens in new tab)"
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-white/10 bg-white/[0.03] text-zinc-400 text-xs font-mono tracking-wide hover:border-white/20 hover:text-white hover:bg-white/[0.06] transition-all duration-200 group"
+                  >
+                    {/* LinkedIn icon */}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="opacity-60 group-hover:opacity-90 transition-opacity">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                      <rect width="4" height="12" x="2" y="9"/>
+                      <circle cx="4" cy="4" r="2"/>
+                    </svg>
+                    <span>LinkedIn</span>
+                    <span className="opacity-40 group-hover:opacity-70 transition-opacity text-[10px]">↗</span>
+                  </a>
+                </div>
+
               </div>
 
             </div>
@@ -297,9 +337,9 @@ export default function About() {
               {["IDEA", "RESEARCH", "PROTOTYPE", "VALIDATION", "DEPLOYMENT"].map((stage, idx) => (
                 <div key={idx} className="flex items-center gap-3 sm:gap-4">
                   <div className={`px-3.5 py-2 rounded-xl border font-bold transition-all ${
-                    stage === "RESEARCH"
+                    stage === "PROTOTYPE"
                       ? "bg-onebar-purple text-white border-onebar-purple shadow-[0_0_20px_rgba(109,40,217,0.4)] scale-110"
-                      : stage === "IDEA"
+                      : stage === "IDEA" || stage === "RESEARCH"
                       ? "bg-white/[0.03] text-zinc-400 border-white/10"
                       : "bg-transparent text-zinc-600 border-white/5"
                   }`}>
@@ -311,11 +351,15 @@ export default function About() {
             </div>
 
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-onebar-purple/30 bg-onebar-purple/10 text-xs font-mono font-semibold text-onebar-purple-light uppercase mb-6">
-              CURRENTLY R&amp;D · PRE-PROTOTYPE
+              <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-onebar-purple opacity-60" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-onebar-purple" />
+              </span>
+              PROTOTYPE V1 · IN PROGRESS
             </div>
 
             <p className="text-zinc-400 text-sm max-w-xl mx-auto leading-relaxed">
-              We're currently researching the technical feasibility of resilient payment concepts. The next step is turning the strongest ideas into something we can actually test.
+              Research complete. We are now building Prototype V1 — connectivity-aware payment flows, multiple communication routes, and automatic route selection.
             </p>
           </div>
         </div>
