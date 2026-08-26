@@ -217,7 +217,7 @@ export default function Contact() {
           <div className="reveal-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-onebar-purple/30 bg-onebar-purple/10 w-fit mb-8">
             <span className="w-1.5 h-1.5 rounded-full bg-onebar-purple animate-pulse-glow" />
             <span className="text-xs font-mono font-semibold tracking-widest text-onebar-purple-light uppercase">
-              ONEBAR · R&amp;D · PRE-PROTOTYPE
+              ONEBAR · PROTOTYPE V1 · IN PROGRESS
             </span>
           </div>
 
@@ -231,7 +231,7 @@ export default function Contact() {
           </p>
 
           <p className="reveal-anim text-zinc-500 text-xs md:text-sm font-mono mt-4">
-            We're currently in R&amp;D and always interested in meaningful conversations.
+            We're currently building Prototype V1 and always interested in meaningful conversations.
           </p>
         </div>
 
@@ -279,7 +279,7 @@ export default function Contact() {
                   <ShieldCheck size={16} className="text-onebar-purple-light mt-0.5 flex-shrink-0" />
                   <div>
                     <span className="block font-mono text-[10px] text-zinc-500 uppercase">DEVELOPMENT STATUS</span>
-                    <span className="text-amber-400 font-mono font-semibold">R&amp;D · Pre-prototype</span>
+                    <span className="text-amber-400 font-mono font-semibold">Prototype V1 · In Progress</span>
                   </div>
                 </div>
               </div>

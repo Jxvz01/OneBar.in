@@ -102,8 +102,8 @@ export default function Footer() {
               </li>
             </ul>
             <div className="py-2.5 px-4 rounded border border-dashed border-onebar-purple/20 bg-onebar-purple/5 max-w-xs text-xs text-onebar-electric/90">
-              <span className="font-mono font-semibold">SIGNAL: Active R&D</span>
-              <p className="mt-1 text-[11px] text-gray-400">Exploring BLE, NFC, Sound, and USSD offline channels.</p>
+              <span className="font-mono font-semibold">SIGNAL: Prototype V1</span>
+              <p className="mt-1 text-[11px] text-gray-400">Building connectivity-aware payment flows and routing.</p>
             </div>
           </div>
         </div>
